@@ -64,7 +64,6 @@
     </a>
     <nav class="site-nav" aria-label="Main">
         <a class="nav-secondary" href="{site.url('/for-councils/')}">For councils</a>
-        <a href="{site.url('/apps/')}">Get the app</a>
         <button class="theme-toggle" type="button" aria-pressed="false"
                 aria-label="Switch to dark theme" hidden>
             <!-- The icon shows what a click would GIVE you, so only one is ever
@@ -78,7 +77,10 @@
                 <path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/>
             </svg>
         </button>
-        <a class="btn btn-primary btn-small" href="https://app.bin-space.app">Sign up</a>
+        <!-- The site's one job before the street knows about it is to get the
+             app installed, so the header button goes to the download page.
+             The web app is linked from that page alone. -->
+        <a class="btn btn-primary btn-small" href="{site.url('/apps/')}">Get the app</a>
     </nav>
 </header>
 <main>

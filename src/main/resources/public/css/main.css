@@ -350,9 +350,7 @@ a { color: var(--text); }
 @media (max-width: 640px) {
     .cta-label-wide { display: none; }
     .cta-label-narrow { display: inline; }
-    /* Phones get one call to action and no alternative to weigh it against:
-       the browser link goes and the app button takes the whole row. */
-    .hero .cta-browser { display: none; }
+    /* Phones get one call to action, and it takes the whole row. */
     .hero .cta-row .btn-primary {
         display: block;
         width: 100%;
