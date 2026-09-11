@@ -190,6 +190,7 @@ def page_html(council, transcription, origin):
 title: {title}
 description: {description}
 layout: bin-day
+image: social-card.png
 council: {council}
 name: {name}
 state: {state}
@@ -220,6 +221,7 @@ def index_html(published, covered, share):
     return """---
 title: "Bin collection days by council"
 description: "Look up your bin day by council - read from each council's own published schedule, with the source named on every page."
+image: social-card.png
 layout: default
 ---
 <section class="legal-page binday-index">
