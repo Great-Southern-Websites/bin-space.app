@@ -67,7 +67,9 @@
 <body>
 <header class="site-header">
     <a class="brand-lockup" href="{site.url('/')}">
-        <img class="brand-logo" src="{site.url('/images/ibis.png')}" alt="">
+        <!-- 84px square: three times the 28px it is drawn at, so it stays crisp on
+             the densest phone screens without shipping the old 512px original. -->
+        <img class="brand-logo" src="{site.url('/images/ibis.webp')}" alt="">
         <span class="brand-name">Bin Space</span>
     </a>
     <nav class="site-nav" aria-label="Main">
