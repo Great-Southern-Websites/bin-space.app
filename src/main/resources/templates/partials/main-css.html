@@ -30,7 +30,10 @@ blocks and the breakpoints are unchanged; edit them here.
 
     --bg: #F4F1EA;            /* the page - warm paper */
     --text: #0E1116;          /* body copy */
-    --muted: #6B6F76;         /* secondary copy */
+    /* Secondary copy. Dark enough to clear 4.5:1 on the warm paper, which is
+       the lightest field it ever sits on after --card. Same hue and saturation
+       as the grey it replaces, two steps down in lightness. */
+    --muted: #61656B;
     --card: #FFFFFF;          /* anything raised off the page */
     --line: #E2DDD2;          /* hairlines and borders */
     /* A fill sunk INTO a card: the bin pills and the unlock trough. Cream in
@@ -46,7 +49,17 @@ blocks and the breakpoints are unchanged; edit them here.
 
     --terracotta: #D97757;
     --terracotta-deep: #C4633F;
-    --on-terracotta: #FFFFFF;
+    /* Terracotta is a FILL: the button, the map, the focus ring. Set as type on
+       the paper it only reaches 2.8:1, so terracotta doing a text job has its
+       own token, the same hue and saturation taken down to 40% lightness. Dark
+       needs no such split, because the terracotta there is already light on
+       near black, so the two are one value in the dark blocks. */
+    --terracotta-ink: #A64526;
+    /* The label on a terracotta fill. Charcoal-brown, not white: white on this
+       terracotta is 3.1:1, and lightening the type cannot fix that without
+       darkening the terracotta itself. This is the ink dark mode already puts
+       on the same fill, so the button now reads the same way in both themes. */
+    --on-terracotta: #241009;
     --clay-mid: #E8B79A;      /* the half-covered state on the coverage map */
     --clay-tint: #F6E2D6;
 
@@ -58,7 +71,7 @@ blocks and the breakpoints are unchanged; edit them here.
     --cov-pending: #E2DDD2;
     --cov-none: #EFECE5;
     --on-cov-pending: #1A1F26;
-    --on-cov-none: #6B6F76;
+    --on-cov-none: #61656B;
 
     --shadow-card: 0 12px 32px rgba(14, 17, 22, .07);
     --shadow-icon: 0 12px 32px rgba(14, 17, 22, .18);
@@ -94,6 +107,7 @@ blocks and the breakpoints are unchanged; edit them here.
 
     --terracotta: #E08A6D;
     --terracotta-deep: #EFA184;
+    --terracotta-ink: #E08A6D;
     --on-terracotta: #241009;
     --clay-mid: #8A5540;
     --clay-tint: #2A1A14;
@@ -127,6 +141,7 @@ blocks and the breakpoints are unchanged; edit them here.
 
     --terracotta: #E08A6D;
     --terracotta-deep: #EFA184;
+    --terracotta-ink: #E08A6D;
     --on-terracotta: #241009;
     --clay-mid: #8A5540;
     --clay-tint: #2A1A14;
@@ -335,7 +350,7 @@ a { color: var(--text); }
     font-size: 0.78rem;
     letter-spacing: 1.8px;
     text-transform: uppercase;
-    color: var(--terracotta);
+    color: var(--terracotta-ink);
     margin: 0 0 14px;
 }
 .hero h1 {
@@ -855,7 +870,7 @@ ul.council-link-list li {
 .cov-defs dd { margin: .25rem 0 0; color: var(--muted); }
 
 .cov-loading, .cov-error { color: var(--muted); }
-.cov-error { color: var(--terracotta-deep); }
+.cov-error { color: var(--terracotta-ink); }
 
 @media (max-width: 640px) {
     .cov-gap { max-width: none; }
@@ -933,7 +948,7 @@ ul.council-link-list li {
 .binday-day strong { display: block; margin-bottom: 8px; }
 .binday-bins { display: flex; flex-wrap: wrap; gap: 8px; }
 .binday-loading { color: var(--muted); }
-.binday-error { color: var(--terracotta-deep); }
+.binday-error { color: var(--terracotta-ink); }
 .binday-info { color: var(--text); }
 .binday-note {
     color: var(--muted);
