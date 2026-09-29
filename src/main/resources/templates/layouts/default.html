@@ -9,18 +9,26 @@
 <link rel="icon" type="image/png" href="{site.url('/images/favicon.png')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Deliberately not blocking. A sheet asked for with media="print" is fetched at
+     once but applied to nothing, so first paint does not wait on Google; onload
+     hands it back to the screen. The faces carry display=swap either way, so the
+     page was always going to draw in the fallback and swap later. Without script
+     the swap never comes, which is what the noscript copy is for. -->
+<link rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <!-- Before the stylesheet, and deliberately blocking: reading the stored choice
      after first paint would flash the light page at anyone who chose dark.
      No stored choice means no attribute, which leaves the CSS media query to
-     follow the operating system. -->
+     follow the operating system. It reads one key and sets one attribute, with
+     nothing to fetch, so it holds the paint up for a fraction of a millisecond. -->
 <script>{|
   try {
     var t = localStorage.getItem('bs-theme');
     if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
   } catch (e) { /* private mode: fall through to the OS preference */ }
 |}</script>
-<link rel="stylesheet" href="{site.url('/css/main.css')}">
+{#include partials/main-css /}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-169VSVSW1L"></script>
 <script>{|

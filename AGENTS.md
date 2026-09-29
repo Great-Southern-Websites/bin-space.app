@@ -9,8 +9,10 @@ APP and its services live elsewhere and are not touched from here.
   `delete-account.html`). The per-council pages under `content/bin-day/<state>/<council>.html`
   use the `bin-day` layout; everything else uses `default`.
 - Layouts: `templates/layouts/default.html` and `templates/layouts/bin-day.html`. Styles:
-  `public/css/main.css` (light/dark tokens on `:root`, two identical dark blocks, the
-  `theme-toggle` button and script in `default.html`). Images: `public/images/`.
+  `templates/partials/main-css.html` (light/dark tokens on `:root`, two identical dark
+  blocks, the `theme-toggle` button and script in `default.html`). It is still one sheet,
+  but `default.html` inlines it into the head instead of linking it, so first paint waits
+  on no stylesheet; keep it that way. Images: `public/images/`.
 - `public/CNAME` holds `www.bin-space.app` and MUST stay; `site.url` in
   `application.properties` matches it. Google Analytics is switched by
   `binspace.analytics.enabled` and off in dev/test; leave that as it is.

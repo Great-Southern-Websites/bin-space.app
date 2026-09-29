@@ -1,3 +1,12 @@
+{!
+The whole sheet, inlined into every page's head by default.html. It lives here
+rather than in public/css/ so that first paint waits on nothing over the network:
+a linked stylesheet costs a round trip before the browser may draw, and this site
+is one small sheet, so it is cheaper to send it with the HTML than to fetch it.
+Still one sheet and still the only one. The light and dark tokens, the two dark
+blocks and the breakpoints are unchanged; edit them here.
+!}
+<style>{|
 /* Bin Space - marketing site. One sheet, mobile-first. */
 
 /* The palette is split by ROLE, not by colour name. The old --ink did two
@@ -981,3 +990,4 @@ ul.council-link-list li {
     color: var(--muted);
     font-size: .82rem;
 }
+|}</style>
