@@ -119,8 +119,12 @@ layout: default
       }
       if (!res.ok) return;
       return res.json().then(function (invite) {
-        show('You have been invited to ' + invite.addressLine
-            + '. Get the app and enter code ' + code + ' when you sign up.');
+        // Suburb only, never the street address: share links get posted in
+        // public places (Facebook groups), and anyone holding one would
+        // otherwise see a household's address printed on our homepage.
+        var where = invite.suburb ? ' in ' + invite.suburb : '';
+        show('A neighbour' + where + ' invited you to their household. Get the app and enter code '
+            + code + ' when you sign up.');
       });
     })
     .catch(function () { /* stay quiet: the page works without it */ });
