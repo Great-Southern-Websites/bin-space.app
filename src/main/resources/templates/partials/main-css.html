@@ -226,7 +226,6 @@ a { color: var(--text); }
 /* Both stores are always offered, so neither button may look like the only
    one: they share a width and differ by fill, not by size. */
 .store-btn { min-width: 232px; }
-.store-alt { margin-top: 20px; }
 .store-forwarding {
     margin-top: 18px;
     font-size: 0.9rem;
@@ -374,9 +373,7 @@ a { color: var(--text); }
 @media (max-width: 640px) {
     .cta-label-wide { display: none; }
     .cta-label-narrow { display: inline; }
-    /* Phones get one call to action and no alternative to weigh it against:
-       the browser link goes and the app button takes the whole row. */
-    .hero .cta-browser { display: none; }
+    /* Phones get one call to action: the app button takes the whole row. */
     .hero .cta-row .btn-primary {
         display: block;
         width: 100%;
@@ -613,7 +610,7 @@ a { color: var(--text); }
 
 /* --- invites: /join/ and the homepage ?ref= banner --- */
 .ref-banner {
-    margin: 18px 0 0;
+    margin: 16px 0 0;
     padding: 12px 16px;
     border-left: 4px solid var(--terracotta);
     background: var(--card);
