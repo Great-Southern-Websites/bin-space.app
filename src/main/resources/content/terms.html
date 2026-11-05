@@ -1,0 +1,62 @@
+---
+title: "Terms & Conditions"
+description: "The Bin Space Terms & Conditions: the agreement you accept when you sign up in the app."
+layout: default
+---
+<section class="legal-page">
+    <p class="legal-meta" id="terms-status">Loading the terms&hellip;</p>
+    <article id="terms" hidden></article>
+    <noscript>
+        <p>This page loads the current terms from our servers, so it needs JavaScript.
+           You can also read them in the Bin Space app, under Settings.</p>
+    </noscript>
+</section>
+
+<script>{|
+(function () {
+  // One source of truth: the terms people accept in the app are served by
+  // user-service, so this page renders that document rather than a copy that
+  // could drift. The server renders it from our own markdown with raw HTML
+  // escaped (TermsService escapeHtml). Defence in depth anyway: the HTML is
+  // rebuilt from an allowlist of plain document tags, with no attributes
+  // except safe link targets, so a compromised API could not script this
+  // origin.
+  var ALLOWED = { H1: 1, H2: 1, H3: 1, H4: 1, P: 1, UL: 1, OL: 1, LI: 1, STRONG: 1, EM: 1,
+    A: 1, BLOCKQUOTE: 1, HR: 1, BR: 1, CODE: 1, TABLE: 1, THEAD: 1, TBODY: 1, TR: 1, TH: 1, TD: 1 };
+  function clean(node, out) {
+    Array.prototype.forEach.call(node.childNodes, function (child) {
+      if (child.nodeType === 3) { out.appendChild(document.createTextNode(child.nodeValue)); return; }
+      if (child.nodeType !== 1) return;
+      if (!ALLOWED[child.tagName]) { clean(child, out); return; }
+      var copy = document.createElement(child.tagName);
+      if (child.tagName === 'A') {
+        var href = child.getAttribute('href') || '';
+        if (/^(https?:|mailto:|#|\/)/i.test(href)) copy.setAttribute('href', href);
+        if (/^https?:/i.test(href)) copy.setAttribute('rel', 'noopener');
+      }
+      clean(child, copy);
+      out.appendChild(copy);
+    });
+  }
+  var status = document.getElementById('terms-status');
+  var article = document.getElementById('terms');
+  fetch('https://api.bin-space.app/v1/users/terms', { headers: { Accept: 'application/json' } })
+    .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(function (doc) {
+      var parsed = new DOMParser().parseFromString(String(doc.html), 'text/html');
+      clean(parsed.body, article);
+      // Tables scroll sideways on a phone instead of widening the page.
+      Array.prototype.forEach.call(article.querySelectorAll('table'), function (t) {
+        var wrap = document.createElement('div');
+        wrap.className = 'table-scroll';
+        t.parentNode.insertBefore(wrap, t);
+        wrap.appendChild(t);
+      });
+      article.hidden = false;
+      status.hidden = true;
+    })
+    .catch(function () {
+      status.textContent = 'We could not load the terms right now. Please try again shortly.';
+    });
+})();
+|}</script>

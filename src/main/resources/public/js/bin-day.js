@@ -8,10 +8,8 @@
 (function () {
   'use strict';
 
-  // api.bin-space.app, NOT app.bin-space.app. The app host routes to the
-  // user-shell in the load balancer's url map, so a request there is served by
-  // the shell and never reaches this service - the responses come back with no
-  // CORS headers at all. Only the api host maps to bin-schedule-backend.
+  // api.bin-space.app is the only host the load balancer maps to the
+  // schedule API, and the API only sends CORS headers for our own origins.
   var API = 'https://api.bin-space.app';
 
   var page = document.querySelector('.binday-page');
