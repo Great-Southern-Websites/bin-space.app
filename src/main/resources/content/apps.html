@@ -16,10 +16,6 @@ layout: default
            href="https://apps.apple.com/au/app/id6801016506">Download on the App&nbsp;Store</a>
     </div>
 
-    <p class="cta-note store-alt">Or <a href="https://app.bin-space.app">open the web app</a> -
-       your schedule, the marketplace, and your wallet, in any browser. Bin night
-       reminders and the home-screen widget need the app.</p>
-
     <p class="store-forwarding" id="store-forwarding" hidden>Taking you to the store&hellip;</p>
 </section>
 
@@ -43,7 +39,7 @@ layout: default
   // listing is ever withdrawn - delete the #store-ios anchor from the markup
   // above; the guards below then drop the button and the iOS forward
   // together, rather than leaving a link that 404s. A dead store link is
-  // worse than the web app.
+  // worse than no link at all.
   var iosBtn = document.getElementById('store-ios');
   var androidBtn = document.getElementById('store-android');
 

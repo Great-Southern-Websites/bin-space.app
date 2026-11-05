@@ -1,0 +1,41 @@
+---
+title: "Terms & Conditions"
+description: "The Bin Space Terms & Conditions: the agreement you accept when you sign up in the app."
+layout: default
+---
+<section class="legal-page">
+    <p class="legal-meta" id="terms-status">Loading the terms&hellip;</p>
+    <article id="terms" hidden></article>
+    <noscript>
+        <p>This page loads the current terms from our servers, so it needs JavaScript.
+           You can also read them in the Bin Space app, under Settings.</p>
+    </noscript>
+</section>
+
+<script>{|
+(function () {
+  // One source of truth: the terms people accept in the app are served by
+  // user-service, so this page renders that document rather than a copy that
+  // could drift. The response is server-rendered from our own markdown with
+  // raw HTML escaped (TermsService escapeHtml), so it is safe to inject.
+  var status = document.getElementById('terms-status');
+  var article = document.getElementById('terms');
+  fetch('https://api.bin-space.app/v1/users/terms', { headers: { Accept: 'application/json' } })
+    .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(function (doc) {
+      article.innerHTML = doc.html;
+      // Tables scroll sideways on a phone instead of widening the page.
+      Array.prototype.forEach.call(article.querySelectorAll('table'), function (t) {
+        var wrap = document.createElement('div');
+        wrap.className = 'table-scroll';
+        t.parentNode.insertBefore(wrap, t);
+        wrap.appendChild(t);
+      });
+      article.hidden = false;
+      status.hidden = true;
+    })
+    .catch(function () {
+      status.textContent = 'We could not load the terms right now. Please try again shortly.';
+    });
+})();
+|}</script>

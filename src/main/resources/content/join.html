@@ -1,0 +1,43 @@
+---
+title: "You've been invited to Bin Space"
+description: "Someone has invited you to share their Bin Space account. Get the app and enter your invite code when you sign up."
+layout: default
+---
+<section class="apps-page join-page">
+    <img class="app-icon" src="{site.url('/images/icon-full.png')}" alt="Bin Space app icon">
+    <h1>You've been invited</h1>
+    <p class="lede">Someone has invited you to share their Bin Space account: the same
+       bin schedule, listings and wallet, on your own phone.</p>
+
+    <div class="invite-code" id="invite-code" hidden>
+        <span class="invite-code-label">Your invite code</span>
+        <strong class="invite-code-value" id="invite-code-value"></strong>
+    </div>
+
+    <ol class="join-steps">
+        <li>Install Bin Space from your phone's app store.</li>
+        <li>Sign in, then enter <span id="code-hint">the code from your invite</span> where
+            the app asks "Have an invite code?".</li>
+    </ol>
+
+    <div class="store-buttons">
+        <a class="btn btn-primary store-btn"
+           href="https://play.google.com/store/apps/details?id=app.binspace.app">Get it on Google&nbsp;Play</a>
+        <a class="btn btn-primary store-btn"
+           href="https://apps.apple.com/au/app/id6801016506">Download on the App&nbsp;Store</a>
+    </div>
+</section>
+
+<script>{|
+(function () {
+  // Invite links read https://www.bin-space.app/join/?code=XXXX. Codes are
+  // short upper-case letters and digits; anything else is ignored rather
+  // than echoed onto the page.
+  var m = /[?&]code=([A-Za-z0-9]{4,32})(&|$)/.exec(location.search);
+  if (!m) return;
+  var code = m[1].toUpperCase();
+  document.getElementById('invite-code-value').textContent = code;
+  document.getElementById('invite-code').hidden = false;
+  document.getElementById('code-hint').textContent = code;
+})();
+|}</script>

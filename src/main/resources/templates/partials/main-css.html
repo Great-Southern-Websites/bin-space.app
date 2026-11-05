@@ -611,6 +611,30 @@ a { color: var(--text); }
 }
 .apps-page .lede { margin: 18px auto 0; }
 
+/* --- invites: /join/ and the homepage ?ref= banner --- */
+.ref-banner {
+    margin: 18px 0 0;
+    padding: 12px 16px;
+    border-left: 4px solid var(--terracotta);
+    background: var(--card);
+    border-radius: 0 10px 10px 0;
+    font-weight: 600;
+}
+.invite-code {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 24px auto 0;
+    padding: 14px 22px;
+    border: 2px dashed var(--terracotta);
+    border-radius: 12px;
+}
+.invite-code[hidden] { display: none; }
+.invite-code-label { color: var(--muted); font-size: 0.85rem; }
+.invite-code-value { font-size: 1.6rem; letter-spacing: 0.12em; }
+.join-steps { max-width: 440px; margin: 24px auto; text-align: left; line-height: 1.6; }
+.join-steps li { margin-bottom: 8px; }
+
 /* --- legal pages --- */
 .legal-page {
     max-width: 640px;
@@ -630,6 +654,21 @@ a { color: var(--text); }
 .legal-page p, .legal-page li { line-height: 1.65; }
 .legal-page ul { padding-left: 22px; }
 .legal-page li { margin-bottom: 10px; }
+/* /terms/ renders the document user-service serves, which carries a version
+   callout (blockquote), divider rules and a fee table. */
+.legal-page blockquote {
+    margin: 16px 0;
+    padding: 4px 16px;
+    border-left: 4px solid var(--terracotta);
+    background: var(--card);
+    border-radius: 0 10px 10px 0;
+    color: var(--muted);
+}
+.legal-page hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0; }
+.legal-page .table-scroll { overflow-x: auto; }
+.legal-page table { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin: 12px 0; }
+.legal-page th, .legal-page td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.legal-page th { background: var(--card); }
 
 /* --- for councils: the official-app mock ---------------------------------- */
 /* Two panels of the same idea - the logo on the schedule, and the page behind

@@ -12,12 +12,12 @@ layout: default
             your bin into something worth putting out. Neighbours with spare room take the
             extra bags of neighbours who've run out, and a little money changes hands.
         </p>
+        <p class="ref-banner" id="ref-banner" hidden></p>
         <div class="cta-row">
             <a class="btn btn-primary" href="{site.url('/apps/')}">
                 <span class="cta-label-wide">See your bin nights</span>
                 <span class="cta-label-narrow">Get the app</span>
             </a>
-            <a class="btn btn-ghost cta-browser" href="{site.url('/apps/')}">Or use it in your browser</a>
         </div>
     </div>
     <div class="hero-art" aria-hidden="true">
@@ -97,3 +97,32 @@ layout: default
         </div>
     </div>
 </section>
+
+<script>{|
+(function () {
+  // Share links from the app read https://www.bin-space.app/?ref=CODE. When
+  // the code is a household invite (someone inviting you to their address),
+  // the app can redeem it at sign-up, so say which code to enter. A plain
+  // referral code cannot be entered in the app, so it gets a friendly line
+  // and no code. A lookup that fails says nothing at all.
+  var m = /[?&]ref=([A-Za-z0-9]{4,32})(&|$)/.exec(location.search);
+  if (!m) return;
+  var code = m[1].toUpperCase();
+  var banner = document.getElementById('ref-banner');
+  function show(text) { banner.textContent = text; banner.hidden = false; }
+  fetch('https://api.bin-space.app/v1/users/invites/' + encodeURIComponent(code),
+        { headers: { Accept: 'application/json' } })
+    .then(function (res) {
+      if (res.status === 404) {
+        show('A neighbour shared Bin Space with you. Get the app to see your bin nights.');
+        return;
+      }
+      if (!res.ok) return;
+      return res.json().then(function (invite) {
+        show('You have been invited to ' + invite.addressLine
+            + '. Get the app and enter code ' + code + ' when you sign up.');
+      });
+    })
+    .catch(function () { /* stay quiet: the page works without it */ });
+})();
+|}</script>
