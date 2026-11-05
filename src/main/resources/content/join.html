@@ -32,8 +32,11 @@ layout: default
 (function () {
   // Invite links read https://www.bin-space.app/join/?code=XXXX. Codes are
   // short upper-case letters and digits; anything else is ignored rather
-  // than echoed onto the page.
-  var m = /[?&]code=([A-Za-z0-9]{4,32})(&|$)/.exec(location.search);
+  // than echoed onto the page. Only the leading run of code characters is
+  // taken: old /join-account/CODE links are redirected here by the load
+  // balancer, which appends any query they carried (/join/?code=CODE?utm=x)
+  // or keeps a trailing slash (?code=CODE/).
+  var m = /[?&]code=([A-Za-z0-9]{4,32})(?![A-Za-z0-9])/.exec(location.search);
   if (!m) return;
   var code = m[1].toUpperCase();
   document.getElementById('invite-code-value').textContent = code;
